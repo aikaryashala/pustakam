@@ -1,0 +1,223 @@
+/* AI Tools and Applications book – builds on ../style.css */
+
+.book {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 0;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* ── Sidebar ── */
+.book-side { position: sticky; top: 72px; }
+/* On phones the chapter list collapses behind this button (see the media query below). */
+.toc-wrap summary {
+  display: none;
+  cursor: pointer;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--paper);
+  padding: 13px 16px;
+  border: 1px solid var(--rust);
+  background: var(--rust);
+  border-radius: 2px;
+  -webkit-tap-highlight-color: transparent;
+}
+.toc-wrap summary::-webkit-details-marker { display: none; }
+.toc-wrap summary::after {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .15s;
+}
+.toc-wrap[open] summary::after { transform: translateY(2px) rotate(-135deg); }
+.toc { display: flex; flex-direction: column; font-size: 13.5px; }
+.toc a {
+  display: flex;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 5px 8px;
+  border-left: 2px solid transparent;
+  line-height: 1.35;
+}
+.toc a:hover { color: var(--rust); }
+.toc a.current { color: var(--ink); font-weight: 600; border-color: var(--rust); background: rgba(184, 67, 10, .06); }
+.toc-home { font-weight: 600; margin-bottom: 6px; }
+.toc-num { font-family: "JetBrains Mono", monospace; font-size: 11.5px; color: var(--rust); min-width: 18px; padding-top: 1px; }
+.toc-unit {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin: 16px 0 4px 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line2);
+}
+
+/* ── Chapter ── */
+.book-main { min-width: 0; }
+.chapter { max-width: 68ch; font-size: 17px; line-height: 1.7; }
+.chapter h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 28px; }
+.chapter h2 { font-size: 23px; margin: 40px 0 12px; }
+.chapter h3 { font-size: 18px; margin: 24px 0 8px; }
+.chapter p { margin: 0 0 16px; }
+.chapter ul, .chapter ol { margin: 0 0 16px 24px; }
+.chapter li { margin-bottom: 6px; }
+.chapter a { color: var(--rust); font-weight: 600; }
+.chapter a:hover { color: #96370a; }
+.chapter strong { color: var(--ink); }
+.chapter code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: .88em;
+  background: rgba(43, 38, 34, .07);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+.chapter pre.code {
+  margin: 0 0 18px;
+  padding: 16px 18px;
+  background: #1f1b18;
+  color: #e9e1d6;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+  border-radius: 2px;
+}
+.chapter pre.code code { background: none; padding: 0; font-size: inherit; }
+
+.chapter table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 20px;
+  font-size: 15px;
+  background: var(--paper);
+}
+.chapter th, .chapter td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.chapter th { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--rust); background: var(--cream); }
+
+/* prompt box */
+.prompt {
+  margin: 0 0 20px;
+  border: 1px solid var(--teal);
+  border-radius: 2px;
+  background: var(--paper);
+}
+.prompt-label {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: var(--paper);
+  background: var(--teal);
+  padding: 4px 12px;
+}
+.prompt pre {
+  margin: 0;
+  padding: 14px 16px;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 15.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  color: var(--ink);
+}
+
+/* note / callout */
+.note {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--rust);
+  background: rgba(184, 67, 10, .06);
+  font-size: 16px;
+}
+
+/* New words and Try it sections */
+section.words, section.try {
+  margin-top: 40px;
+  padding: 20px 22px 8px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+}
+section.words h2, section.try h2 {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--rust);
+  margin: 0 0 12px;
+}
+section.words ul, section.try ul { margin-left: 0; list-style: none; }
+section.words li { font-size: 15.5px; padding-left: 0; }
+section.words li strong { color: var(--teal); }
+section.try { border-color: var(--teal); }
+section.try h2 { color: var(--teal); }
+section.try li { font-size: 15.5px; }
+
+/* contents page */
+.chapter .unit-list { list-style: none; margin: 0 0 8px; counter-reset: ch; }
+.chapter .unit-list li { counter-increment: ch; }
+
+/* prev / next */
+.prev-next {
+  max-width: 68ch;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 48px 0 0;
+}
+.prev-next a {
+  display: block;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 2px;
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  transition: border-color .15s;
+}
+.prev-next a:hover { border-color: var(--rust); }
+.prev-next a span {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--rust);
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+.pn-next { text-align: right; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .book { grid-template-columns: 1fr; gap: 24px; padding: 24px 16px 0; }
+  .book-side { position: static; }
+  .toc-wrap summary { display: flex; }
+  .toc-wrap[open] summary { border-radius: 2px 2px 0 0; }
+  .toc {
+    padding: 8px 6px 10px;
+    border: 1px solid var(--rust);
+    border-top: 0;
+    background: var(--paper);
+    border-radius: 0 0 2px 2px;
+    font-size: 15px;
+  }
+  .toc a { padding: 8px 10px; }
+  .toc-num { font-size: 12.5px; min-width: 22px; }
+  .toc-unit { font-size: 11.5px; margin: 14px 0 4px 10px; }
+  .chapter { font-size: 16px; }
+  .prev-next { grid-template-columns: 1fr; }
+  .pn-next { text-align: left; }
+}
