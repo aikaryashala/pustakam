@@ -38,7 +38,7 @@ You do not need all five every time. But the more you give, the better the answe
 
 ## Simple tips
 
-1. **Be specific.** "Write a notice" is weak. "Write a 100-word notice about a blood donation camp on 15 March at the GVPIHLR auditorium" is strong.
+1. **Be specific.** "Write a notice" is weak. "Write a 100-word notice about a blood donation camp on 15 March at the college auditorium" is strong.
 2. **Say the length.** "In 3 sentences." "Under 200 words." "A one-page report."
 3. **Say the audience.** "For a 10-year-old." "For my HOD." "For a farmer."
 4. **Say the format.** "As a table." "As a numbered list." "As JSON."

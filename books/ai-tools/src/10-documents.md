@@ -23,7 +23,7 @@ Before you ask AI for a document, collect these:
 ## Example 1: A notice
 
 ```prompt
-Write a formal notice from the Student Council of GVPIHLR, Visakhapatnam.
+Write a formal notice from the Student Council of our college.
 Event: Blood donation camp with KGH Blood Bank.
 Date: 15 March 2027, 9 am to 2 pm.
 Venue: College auditorium, Madhurawada campus.
@@ -47,7 +47,7 @@ Write a one-page industrial visit report. Visit: Visakhapatnam Port, 3 February 
 ## Example 4: An invitation
 
 ```prompt
-Write an invitation card text for our department's technical fest "Tarang 2027". Date: 20 and 21 March 2027. Place: GVPIHLR campus, Visakhapatnam. Chief guest: a scientist from NSTL Visakhapatnam. Events: coding contest, robo race, paper presentation. Tone: warm and exciting. Under 80 words.
+Write an invitation card text for our department's technical fest "Tarang 2027". Date: 20 and 21 March 2027. Place: our college campus, Visakhapatnam. Chief guest: a scientist from NSTL Visakhapatnam. Events: coding contest, robo race, paper presentation. Tone: warm and exciting. Under 80 words.
 ```
 
 ## Types of documents and what to remember

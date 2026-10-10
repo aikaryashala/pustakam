@@ -74,7 +74,7 @@ Click **Share** then **Download**. Choose:
 ## Try it
 
 - Make a birthday card for a friend using the five steps above.
-- Make a "Welcome to GVPIHLR" card for next year's students.
+- Make a "Welcome to our college" card for next year's students.
 - Try Canva's **Magic Design**: type "Diwali greeting for a college hostel" and see what it makes in one click.
 - Open [Canva Design School](https://www.canva.com/designschool/) for free short lessons.
 

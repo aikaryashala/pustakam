@@ -12,7 +12,7 @@
 4. Type your topic. Be specific. Example:
 
 ```prompt
-Solar energy for a college campus in Visakhapatnam: how it works, costs, benefits, a simple plan for GVPIHLR. For first year engineering students. 8 slides.
+Solar energy for a college campus in Visakhapatnam: how it works, costs, benefits, a simple plan for our college. For first year engineering students. 8 slides.
 ```
 
 5. Choose the number of slides and the language. Click **Continue**.

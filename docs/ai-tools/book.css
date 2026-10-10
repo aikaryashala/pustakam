@@ -3,7 +3,7 @@
 .book {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 20px 0;
+  padding: 40px 20px 64px;
   display: grid;
   grid-template-columns: 250px 1fr;
   gap: 48px;
@@ -11,7 +11,7 @@
 }
 
 /* ── Sidebar ── */
-.book-side { position: sticky; top: 72px; }
+.book-side { position: sticky; top: 24px; }
 /* On phones the chapter list collapses behind this button (see the media query below). */
 .toc-wrap summary {
   display: none;
@@ -202,7 +202,7 @@ section.try li { font-size: 15.5px; }
 
 /* ── Responsive ── */
 @media (max-width: 860px) {
-  .book { grid-template-columns: 1fr; gap: 24px; padding: 24px 16px 0; }
+  .book { grid-template-columns: 1fr; gap: 24px; padding: 24px 16px 48px; }
   .book-side { position: static; }
   .toc-wrap summary { display: flex; }
   .toc-wrap[open] summary { border-radius: 2px 2px 0 0; }
@@ -220,4 +220,109 @@ section.try li { font-size: 15.5px; }
   .chapter { font-size: 16px; }
   .prev-next { grid-template-columns: 1fr; }
   .pn-next { text-align: left; }
+}
+
+/* ── Search ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.book-search { position: relative; margin: 0 0 14px; }
+.book-search-box { position: relative; }
+.book-search input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 9px 32px 9px 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238a817a' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 11px center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.book-search input::-webkit-search-cancel-button { display: none; }
+.book-search input:focus { outline: none; border-color: var(--rust); box-shadow: 0 0 0 3px rgba(184, 67, 10, .12); }
+.book-search-clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 32px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.book-search-clear:hover { color: var(--rust); }
+.book-search-results {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max(100%, 400px);
+  max-height: min(70vh, 560px);
+  overflow-y: auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 12px 32px rgba(43, 38, 34, .16);
+}
+.book-search-hit {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line2);
+}
+.book-search-hit:last-of-type { border-bottom: 0; }
+.book-search-hit:hover, .book-search-hit.is-active { background: rgba(184, 67, 10, .06); }
+.book-search-where {
+  display: block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  color: var(--rust);
+  margin-bottom: 2px;
+}
+.book-search-title { display: block; font-weight: 600; font-size: 14.5px; line-height: 1.35; }
+.book-search-text { display: block; font-size: 13px; line-height: 1.5; color: var(--muted); margin-top: 3px; }
+.book-search-hit mark, .chapter mark.search-hit {
+  background: rgba(240, 180, 41, .45);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 2px;
+}
+.book-search-title mark { background: rgba(240, 180, 41, .6); }
+.book-search-empty, .book-search-count {
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.book-search-count {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: .04em;
+  border-top: 1px solid var(--line2);
+  background: var(--cream);
+}
+@media (max-width: 860px) {
+  .book-search { margin-bottom: 12px; }
+  .book-search input { font-size: 16px; padding: 12px 36px 12px 38px; background-position: 13px center; }
+  .book-search-clear { width: 36px; }
+  .book-search-results { position: static; width: 100%; max-height: none; box-shadow: none; margin-top: 8px; }
 }

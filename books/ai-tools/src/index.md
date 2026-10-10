@@ -1,6 +1,6 @@
 # AI Tools and Applications
 
-This is a small book for the course **AI Tools and Applications**. It is for first year B.Tech students of GVPIHLR, Visakhapatnam. It is common to all branches.
+This is a small book for the course **AI Tools and Applications**. It is for first year B.Tech students. It is common to all branches.
 
 The book is written in simple English. The sentences are short. New words are explained at the end of each chapter.
 

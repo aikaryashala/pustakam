@@ -6,10 +6,15 @@ Only a small part of Markdown is supported: headings, paragraphs, lists, fenced 
 tables, bold, italic, inline code and links. A fenced block marked ```prompt is shown as a
 prompt box.
 
+The build also writes docs/ai-tools/search-index.js: one entry per section of every
+chapter, with its plain text. docs/ai-tools/search.js loads it when the reader starts
+typing in the search box and shows matching sections.
+
 Usage: python3 books/ai-tools/tools/build_book.py
 """
 
 import html
+import json
 import re
 from pathlib import Path
 
@@ -204,6 +209,48 @@ def convert(md):
     return "\n".join(out), title
 
 
+# ── search index ─────────────────────────────────────────────────────────────
+
+SECTION = re.compile(r'<section[^>]*\bid="([^"]+)"[^>]*>(.*?)</section>', re.S)
+TAG = re.compile(r"<(/?)([a-zA-Z0-9]+)[^>]*>")
+INLINE_TAGS = {"a", "strong", "em", "code", "span"}
+
+
+def plain(fragment):
+    """Visible text of an HTML fragment. Inline tags vanish, block tags become a
+    space, and the end of a list item, table row or paragraph becomes a full stop
+    so that snippets read naturally."""
+    def tag(m):
+        closing, name = m.group(1), m.group(2).lower()
+        if name in INLINE_TAGS:
+            return ""
+        if closing and name in {"li", "tr", "p", "h3", "pre", "div"}:
+            return ". "
+        return " "
+    text = html.unescape(TAG.sub(tag, fragment))
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s+([.,;:])", r"\1", text)      # "cell ." -> "cell."
+    text = re.sub(r"([.!?:;,])\.", r"\1", text)      # "end.." -> "end."
+    return text.strip()
+
+
+def index_entries(page, chapter_no, chapter_title, body):
+    """One search entry per section of a page. Text before the first section is
+    indexed under the chapter heading itself."""
+    entries = []
+    first = SECTION.search(body)
+    intro = body[: first.start()] if first else body
+    if plain(intro):
+        entries.append({"p": page, "c": chapter_no, "t": chapter_title, "h": "", "a": "", "x": plain(intro)})
+    for m in SECTION.finditer(body):
+        inner = m.group(2)
+        hm = re.search(r"<h2>(.*?)</h2>", inner, re.S)
+        heading = plain(hm.group(1)) if hm else ""
+        text = plain(inner[hm.end():] if hm else inner)
+        entries.append({"p": page, "c": chapter_no, "t": chapter_title, "h": heading, "a": m.group(1), "x": text})
+    return entries
+
+
 # ── page assembly ────────────────────────────────────────────────────────────
 
 def contents_nav(current):
@@ -252,12 +299,14 @@ def render(template, *, title, eyebrow, body, nav, footer_nav, description):
 def main():
     template = TEMPLATE.read_text(encoding="utf-8")
     OUT.mkdir(parents=True, exist_ok=True)
+    index = []
 
     body, title = convert((SRC / "index.md").read_text(encoding="utf-8"))
+    index += index_entries("index.html", 0, title, body)
     (OUT / "index.html").write_text(render(
         template, title=title, eyebrow="a simple book for first year students", body=body,
         nav=contents_nav("index"), footer_nav="",
-        description="AI Tools and Applications, in simple English, for first year B.Tech students of GVPIHLR, Visakhapatnam.",
+        description="AI Tools and Applications, in simple English, for first year B.Tech students.",
     ), encoding="utf-8")
 
     for idx, (stem, ctitle, unit) in enumerate(CHAPTERS):
@@ -265,13 +314,20 @@ def main():
         body, title = convert(src.read_text(encoding="utf-8"))
         if title != ctitle:
             raise SystemExit(f"{src.name}: heading '{title}' does not match the list in build_book.py ('{ctitle}')")
+        index += index_entries(f"{stem}.html", idx + 1, title, body)
         (OUT / f"{stem}.html").write_text(render(
             template, title=f"{idx + 1}. {title}", eyebrow=unit, body=body,
             nav=contents_nav(stem), footer_nav=prev_next(idx),
             description=f"{title} – AI Tools and Applications, a simple book for first year students.",
         ), encoding="utf-8")
 
-    print(f"Wrote {len(CHAPTERS) + 1} pages to {OUT.relative_to(ROOT)}")
+    # A .js file (not .json) so the search also works when the book is opened from disk.
+    (OUT / "search-index.js").write_text(
+        "window.BOOK_INDEX = " + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n",
+        encoding="utf-8",
+    )
+
+    print(f"Wrote {len(CHAPTERS) + 1} pages and a search index of {len(index)} sections to {OUT.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
