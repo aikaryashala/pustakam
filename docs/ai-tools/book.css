@@ -12,6 +12,17 @@
 
 /* ── Sidebar ── */
 .book-side { position: sticky; top: 24px; }
+/* Link back to the book shelf at docs/index.html. */
+.shelf-link {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: .04em;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+.shelf-link:hover { color: var(--rust); }
 /* On phones the chapter list collapses behind this button (see the media query below). */
 .toc-wrap summary {
   display: none;
